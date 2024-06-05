@@ -16,54 +16,111 @@ import javax.sound.sampled.*;
 
 public class SplashScreen {
 
+	//Objects
+	
     private Stage splashStage;
-    private ProgressBar progressBar; // Objekt zum darstellen des Ladebalkens
+    
+    private ProgressBar progressBar; 
+    
+    //Objects
 
     public SplashScreen() {
+    	
         splashStage = new Stage();
-        splashStage.initStyle(StageStyle.UNDECORATED); //Undecorated, bedeutet das das Fenster keine "Dekoratio" hat, also keine Rahmen, title, etc.
+        
+        //Icon
+        
+        Image icon = new Image("/picture/Logo.png");
+        
+        splashStage.getIcons().add(icon);
+        
+        //Icon
+        
+        splashStage.initStyle(StageStyle.UNDECORATED); 
 
+        //Loadingscreen Picture
+        
         BorderPane root = new BorderPane();
-        ImageView splashImage = new ImageView(new Image("file:C:\\Users\\020700012023\\OneDrive - CGM\\Desktop\\Textis\\Logo_LoadScreen.png")); // Hier den Pfad zum Bild anpassen
-        splashImage.setFitWidth(400); // Setzen der Breite
-        splashImage.setFitHeight(200); // Setzen der Höhe
-        splashImage.setPreserveRatio(true); // Verhältnis beibehalten
-        root.setCenter(splashImage); // Plazieren des Bildes
+        
+        ImageView splashImage = new ImageView(new Image("/picture/Logo_LoadScreen.png")); 
+        
+        splashImage.setFitWidth(400); 
+        
+        splashImage.setFitHeight(200); 
+        
+        splashImage.setPreserveRatio(true);
+        
+        root.setCenter(splashImage); 
+        
+        //Loadingscreen Picture
 
-        progressBar = new ProgressBar(); // Hinzufügen des Ladebalkens
-        progressBar.setPrefWidth(500); // die Breite des Ladebalkens anpassen
-        root.setBottom(progressBar); // Plazieren des Ladebalkens
-
+        progressBar = new ProgressBar();
+        
+        progressBar.setPrefWidth(500);
+        
+        root.setBottom(progressBar); 
+        
+        //
         Scene scene = new Scene(root, 500, 300);
+        
         splashStage.setScene(scene);
+        //
+        
+        //playing the Sound
         
        playSound("/audio/startsound.wav");
-    }
-
-    public void show() { // Zeigt das Ladefenster an
-        splashStage.show();
-    }
-
-    public void hide() { // Vertseckt das ladefensterS
-        splashStage.hide();
-    }
-
-    public void updateProgress(double progress) {
-        Platform.runLater(() -> progressBar.setProgress(progress));
+       
     }
     
-    private void playSound(String soundFilePath) {
-        new Thread(() -> {
-            try {
-                Clip clip = AudioSystem.getClip();
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getResource(soundFilePath));
-                clip.open(inputStream);
-                clip.start();
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
+    	//playing the Sound
+    
+    //Hides and shows loadingscreen
+    
+    public void show() { 
     	
+        splashStage.show();
+        
+    }
+
+    public void hide() { 
+    	
+        splashStage.hide();
+        
+    }
+    
+    //Hides and shows loadingscreen
+
+    public void updateProgress(double progress) {
+    	
+        Platform.runLater(() -> progressBar.setProgress(progress));
+        
+    }
+    
+    //Audio Method
+    
+    private void playSound(String soundFilePath) {
+    	
+        new Thread(() -> {
+        	
+            try {
+            	
+                Clip clip = AudioSystem.getClip();
+                
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getResource(soundFilePath));
+                
+                clip.open(inputStream);
+                
+                clip.start();
+                
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            	
+                e.printStackTrace();
+                
+            }
+            
+        }).start();
+        
+    }
+    //Audio Method	
     }
     
