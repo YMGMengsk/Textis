@@ -1,4 +1,5 @@
 package application;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,13 +15,16 @@ public class Help extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+    	
+    	//Text saved array
         String[] tabTitles = {
             "Neue Datei erstellen",
             "Dokument öffnen",
             "Dokument speichern",
             "Drucken",
             "Text Bearbeitung",
-            "Einstellungsmenü"
+            "Einstellungsmenü",
+            
         };
 
         String[] tabTexts = {
@@ -29,39 +33,63 @@ public class Help extends Application {
             "Um das aktuelle Dokument zu speichern, klicken Sie auf \"Datei\" und dann auf \"Speichern\".",
             "Wenn Sie Ihr Dokument drucken möchten, klicken Sie auf \"Drucken\".",
             "Das Menü \"Bearbeiten\" bietet Funktionen zur Textbearbeitung.",
-            "Wenn Sie die Sprache der Benutzeroberfläche ändern möchten, öffnen Sie die \"Einstellungen\" und wählen die gewünschte Sprache aus. Die Menüpunkte und Beschriftungen werden entsprechend angepasst, damit Sie die Anwendung in Ihrer bevorzugten Sprache nutzen können."
+            "Wenn Sie die Sprache der Benutzeroberfläche ändern möchten, öffnen Sie die \"Einstellungen\" und wählen die gewünschte Sprache aus. Die Menüpunkte und Beschriftungen werden entsprechend angepasst, damit Sie die Anwendung in Ihrer bevorzugten Sprache nutzen können.",
+            
         };
+        //Text saved array
 
         VBox root = new VBox();
 
         AnchorPane anchorPane = new AnchorPane();
 
-
+        //Settings and creation of the Tabs
+        
         TabPane tabPane = new TabPane();
+        
         tabPane.setPrefSize(633, 392);
+        
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         for (int i = 0; i < tabTexts.length; i++) {
+        	
             Tab tab = new Tab(tabTitles[i]);
+            
             AnchorPane tabContent = new AnchorPane();
+            
             Text tabText = new Text(tabTexts[i]);
+            
             tabText.setLayoutX(9.0);
+            
             tabText.setLayoutY(27.0);
+            
             tabText.setWrappingWidth(615.224609375);
+            
             tabContent.getChildren().add(tabText);
+            
             tab.setContent(tabContent);
+            
             tabPane.getTabs().add(tab);
+            
         }
+        
+        //Settings and creation of the Tabs
 
+        //Programm Window Settings
+        
         anchorPane.getChildren().addAll(tabPane);
+        
         VBox.setVgrow(anchorPane, javafx.scene.layout.Priority.ALWAYS);
 
         root.getChildren().add(anchorPane);
 
         Scene scene = new Scene(root, 640, 400);
+        
         primaryStage.setScene(scene);
+        
         primaryStage.show();
     }
+    
+    //Programm WIndows Settings
 
     public static void main(String[] args) {
         launch(args);
