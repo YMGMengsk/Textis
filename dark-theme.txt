@@ -1,0 +1,74 @@
+/*Everything here changes the Dark mode design by Hex Color */
+
+.root {
+		-fx-background-color: #2e2e2e;
+		-fx-text-fill: #ffffff;
+}
+
+.menu-bar {
+	-fx-background-color: #3a3a3a;
+}
+
+.menu {
+	-fx-text-fill: #ffffff;
+}
+
+.menu-item{
+	-fx-background-color: #3a3a3a;
+	-fx-text-fill: #ffffff;
+}
+
+
+
+.label{
+	-fx-text-fill: #ffffff;
+}
+
+.checkbox, .radio-button {
+	-fx-text-fill: #ffffff;
+}
+
+.html-editor{
+	-fx-background-color: #2e2e2e;
+}
+
+.html-editor .tool-bar {
+	-fx-background-color: #3a3a3a;
+}
+
+.html-editor .web-view {
+	background-color: #2e2e2e;
+}
+
+.html-editor .web-view .web-view-content {
+	-fx-background-color: #2e2e2e;
+	-fx-color: #ffffff;
+}
+
+.separator *.line {
+	-fx-background-color: #3a3a3a;
+}
+
+.vbox {
+	-fx-background-color: #3a3a3a;
+}
+
+.anchor-pane {
+	-fx-background-color: #3a3a3a;
+}
+
+.tab-pane {
+	-fx-background-color: #3a3a3a;
+}
+
+.tab {
+	-fx-background-color: #3a3a3a;
+}
+
+
+
+
+
+
+
+
