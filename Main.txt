@@ -180,7 +180,7 @@ public class Main extends Application {
         
         // Primary Icon
     	
-        Image Logo = new Image("file:\\Users\\020700012023\\OneDrive - CGM\\Desktop\\Textis\\Logo.png");
+        Image Logo = new Image("/picture/Logo.png");
         
         primaryStage.getIcons().add(Logo);
         
