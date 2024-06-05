@@ -35,83 +35,138 @@ import javafx.scene.control.CheckMenuItem;
 
 
 public class Main extends Application {
+	
+	//Objects
     private SplashScreen splashScreen;
     private ImageView bottomImage;
     String currentbottomimage;
+    //Objects
+    
     @Override
     public void start(Stage primaryStage) {
+    	
         //API Number request
     	try {
          
             SSLContext sc = SSLContext.getInstance("SSL");
+            
             sc.init(null, new TrustManager[] { (TrustManager) new X509TrustManager() {
+            	
                 public X509Certificate[] getAcceptedIssuers() {
+                	
                     return null;
+                    
                 }
+                
                 public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                	
                 }
+                
                 public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                	
                 }
+                
             } }, new java.security.SecureRandom());
+            
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            
             HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+            
             URL url = new URL("https://www.random.org/integers/?num=1&min=1&max=5&col=1&base=10&format=plain&rnd=new");
+            
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            
             connection.setRequestMethod("GET");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            
             String inputLine;
+            
             StringBuffer response = new StringBuffer();
 
             while ((inputLine = in.readLine()) != null) {
+            	
                 response.append(inputLine);
+                
             }
+            
             in.close();
 
             int randomNumber = Integer.parseInt(response.toString().trim());
 
             connection.disconnect();
+            
             System.out.println(randomNumber);
             
             //Picture setter
+            
            if(randomNumber == 1) {
+        	   
             	currentbottomimage ="/picture/bottomImage.jpg";
+            	
             } if(randomNumber == 2) {
+            	
             	currentbottomimage = "/picture/hackfressen.jpg";
+            	
             } if (randomNumber == 3 ) {
+            	
             	currentbottomimage = "/picture/raidshadow.jpg";
+            	
             } if (randomNumber == 4) {
+            	
             	currentbottomimage = "picture/rickast.jpg";
+            	
             } if(randomNumber == 5) {
+            	
             	currentbottomimage = "picture/rolex.jpg";
             }
+            
             		
             //Picture setter
             
         } catch (Exception e) {
+        	
             e.printStackTrace();
+            
         }
+    	
     	//API Number request
     	
         splashScreen = new SplashScreen();
+        
         splashScreen.show();	
+        
 
         //Simulating loadingscreen in background
+        
         new Thread(() -> {
+        	
             for (int i = 0; i <= 100; i++) {
+            	
                 try {
+                	
                     Thread.sleep(50); 
+                    
                 } catch (InterruptedException e) {
+                	
                     e.printStackTrace();
+                    
                 }
+                
                 splashScreen.updateProgress(i / 100.0);
+                
             }
 
             Platform.runLater(() -> {
+            	
                 splashScreen.hide();
+                
                 showMainStage(primaryStage);
+                
             });
+            
         }).start();
+        
     }
 
     //Simulating loadingscreen in background
@@ -124,57 +179,91 @@ public class Main extends Application {
    
         
         // Primary Icon
+    	
         Image Logo = new Image("file:\\Users\\020700012023\\OneDrive - CGM\\Desktop\\Textis\\Logo.png");
+        
         primaryStage.getIcons().add(Logo);
+        
         //Primary Icon
 
         // FileChooser
+        
         FileChooser fileChooser = new FileChooser();
+        
         //FileChooser
         
         // Panel
+        
         VBox root = new VBox();	
+        
         //Panel
         
         // Textarea
+        
         HTMLEditor htmleditor = new HTMLEditor();
+        
         //Textarea
         
         // File Menu and Buttons
+        
         MenuBar menuBar = new MenuBar();
+        
         Menu fileMenu = new Menu("File");
+        
         MenuItem newItem = new MenuItem("New");
+        
         MenuItem openItem = new MenuItem("Open…");
+        
         MenuItem saveAsItem = new MenuItem("Save As…");
+        
         SeparatorMenuItem separatorMenuItem1 = new SeparatorMenuItem();
+        
         MenuItem printItem = new MenuItem("Print");
+        
         MenuItem quitItem = new MenuItem("Quit");
+        
         //File Menu and Buttons
         
         // Adding all File Buttons
+        
         fileMenu.getItems().addAll(
+        		
             newItem, openItem, saveAsItem, separatorMenuItem1,
+            
             printItem, quitItem
+            
         );
+        
         //Adding all File Buttons
         
         // Settings Menu and Buttons
+        
         Menu settingsMenu = new Menu("Settings");
 
         MenuItem englishItem = new MenuItem("English");
+        
         MenuItem germanItem = new MenuItem("German");
+        
         MenuItem spanishItem = new MenuItem("Español");
+        
         MenuItem italianItem = new MenuItem("Italian");
+        
         SeparatorMenuItem separatorMenuItem2 = new SeparatorMenuItem();
+        
         CheckMenuItem darkMode = new CheckMenuItem("Dark Mode");
+        
 
         settingsMenu.getItems().addAll(
+        		
             englishItem, germanItem, spanishItem, italianItem, separatorMenuItem2, darkMode
         );
+        
         //Settings Menu and Buttons
 
         //Help Menu and Buttons
+        
         Menu helpMenu = new Menu("Help");
+        
         MenuItem aboutItem = new MenuItem("About Textis");
 
         helpMenu.getItems().addAll(aboutItem);
@@ -184,253 +273,429 @@ public class Main extends Application {
         root.getChildren().addAll(menuBar);
 
         AnchorPane anchorPane = new AnchorPane();
-        //Help Menu and Buttons
-
         
-        // Size and positioning of the HTMLEditor
+        //Help Menu and Buttons
+        
+        // Size and positioning settings for HTMLEditor
+        
         AnchorPane.setTopAnchor(htmleditor, 0.0);
+        
         AnchorPane.setLeftAnchor(htmleditor, 0.0);
+        
         AnchorPane.setRightAnchor(htmleditor, 0.0);
+        
         AnchorPane.setBottomAnchor(htmleditor, 380.0);
+        
         anchorPane.getChildren().add(htmleditor);
+        
         root.getChildren().add(htmleditor);
-        // Size and positioning of the HTMLEditor
-
-        //Programmwindow settings
+        
+        // Size and positioning settings for HTMLEditor
+        
+     //Programm settings
+        
      Scene scene = new Scene(root, 1000,600);
+     
      primaryStage.setScene(scene);
+     
      primaryStage.setTitle("Textis (Free Version)");
+     
      primaryStage.show();
-     //Programmwindow settings
+     
+   //Programm settings
 
      
 //Picture remover/setter
+     
      ChangeListener<Number> resizeListener = (obs, oldVal, newVal) -> {
+    	 
          if (primaryStage.getWidth() < 701 || primaryStage.getHeight() <1000) {
+        	 
              if (bottomImage != null) {
+            	 
                  root.getChildren().remove(anchorPane);
+                 
                  bottomImage = null;
+                 
              }
+             
          } else {
+        	 
              if (bottomImage == null) {
+            	 
                  bottomImage = new ImageView(new Image(currentbottomimage));
+                 
                  bottomImage.setFitWidth(1920);
+                 
                  bottomImage.setFitHeight(380);
+                 
                  anchorPane.getChildren().add(bottomImage);
+                 
                  root.getChildren().add(anchorPane);
+                 
              }
+             
          }
+         
      };
 
      primaryStage.widthProperty().addListener(resizeListener);
+     
      primaryStage.heightProperty().addListener(resizeListener);
+     
    //Picture remover/setter
-   
-     root.heightProperty().addListener((obs, oldVal, newVal) -> {
-         htmleditor.setPrefHeight(newVal.doubleValue() - menuBar.getHeight());
-     });
-     root.widthProperty().addListener((obs, oldVal, newVal) -> {
-         htmleditor.setPrefWidth(newVal.doubleValue());
-     });
+
      	//Dark Mode
+     
      darkMode.setOnAction(e -> {
+    	 
      	if (darkMode.isSelected()) {
+     		
      		scene.getStylesheets().add(getClass().getResource("dark-theme.css").toExternalForm());
      	} else {
+     		
      		scene.getStylesheets().remove(getClass().getResource("dark-theme.css").toExternalForm());
      	}
+     	
      });
+     
      	//Dark Mode
 
-        //Htmleditor Settings
-        htmleditor.setPrefHeight(scene.getHeight());
-        htmleditor.setPrefWidth(scene.getWidth());
-        //Htmleditor Settings
-        
+
         // Button Functions
-        
+     
         //Language Change
+     
         //German Change
+     
         germanItem.setOnAction(e ->{
+        	
         	fileMenu.setText("Datei");
+        	
         	newItem.setText("Neu");
+        	
         	openItem.setText("Öffnen");
+        	
         	saveAsItem.setText("Speichern als");
+        	
         	printItem.setText("Drucken");
+        	
         	quitItem.setText("Schließen");
+        	
         	settingsMenu.setText("Einstellungen");
+        	
         	englishItem.setText("Englisch");
+        	
         	germanItem.setText("Deutsch");
+        	
         	spanishItem.setText("Spanisch");
+        	
         	italianItem.setText("Italenisch");
+        	
         	helpMenu.setText("Hilfe");
+        	
         	aboutItem.setText("Über Textis");
         });
+        
         //German Change
+        
         //English Change
+        
         englishItem.setOnAction(e -> {
+        	
         	fileMenu.setText("File");
+        	
         	newItem.setText("New");
+        	
         	openItem.setText("Open");
+        	
         	saveAsItem.setText("Save as");
+        	
         	printItem.setText("Print");
+        	
         	quitItem.setText("Quit");
+        	
         	settingsMenu.setText("Settings");
+        	
         	englishItem.setText("English");
+        	
         	germanItem.setText("German");
+        	
         	spanishItem.setText("Spanish");
+        	
         	italianItem.setText("Italian");
+        	
         	helpMenu.setText("Help");
+        	
         	aboutItem.setText("About Textis");
+        	
         });
+        
         //English Change
+        
         //Spanish Change
+        
         spanishItem.setOnAction(e ->{
+        	
         	fileMenu.setText("Archivo");
+        	
         	newItem.setText("Nuevo");
+        	
         	openItem.setText("Abrir");
+        	
         	saveAsItem.setText("Guardar como");
+        	
         	printItem.setText("Imprimier");
+        	
         	quitItem.setText("Deje de");
+        	
         	settingsMenu.setText("Ajustus");
+        	
         	englishItem.setText("Inglés");
+        	
         	germanItem.setText("Alemán");
+        	
         	spanishItem.setText("Español");
+        	
         	italianItem.setText("Italian");
+        	
         	helpMenu.setText("Ayuda");
+        	
         	aboutItem.setText("Acerca de Textis");
+        	
         });
+        
         //Spanish Change
+        
         //Italian Change
+        
         italianItem.setOnAction(e ->{
+        	
            	fileMenu.setText("File");
+           	
         	newItem.setText("Nuovo");
+        	
         	openItem.setText("Aperto");
+        	
         	saveAsItem.setText("Salva con nome");
+        	
         	printItem.setText("Stampa");
+        	
         	quitItem.setText("Abbandonare");
+        	
         	settingsMenu.setText("Impostazioni");
+        	
         	englishItem.setText("Inglese");
+        	
         	germanItem.setText("Tedesco");
+        	
         	spanishItem.setText("Spagnolo");
+        	
         	italianItem.setText("Italiano");
+        	
         	helpMenu.setText("Aiuto");
+        	
         	aboutItem.setText("Informazioni su Textis");
+        	
         });
+        
         //Italian Change
+        
         //Language Change
         
         // Help menu
+        
         aboutItem.setOnAction(e -> showAboutDialog());
+        
         //Help menu
         
         // Print
+        
         printItem.setOnAction(e -> printtextcontent(htmleditor));
+        
         //Print
         
         // Clear Textarea
+        
         newItem.setOnAction(e -> htmleditor.setHtmlText(""));
+        
         // Clear Textarea
         
         // Open Textarea
+        
         openItem.setOnAction(e -> openFile(primaryStage, htmleditor, fileChooser));
+        
         //Open Textarea
         
         // Save Textarea
+        
         saveAsItem.setOnAction(e -> saveFile(primaryStage, htmleditor, fileChooser));
+        
         //Save Textarea
+        
+        //Quit 
+        quitItem.setOnAction(e->{
+        	Platform.exit();
+        });
+        //Quti
     }
+    
     	//Button Functions
    
-    
+
     // Open File Method
+    
     private void openFile(Stage primaryStage, HTMLEditor htmleditor, FileChooser fileChooser) {
+    	
         FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+        
         FileChooser.ExtensionFilter htmlFilter = new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html");
+        
         fileChooser.getExtensionFilters().addAll(txtFilter, htmlFilter);
 
         File file = fileChooser.showOpenDialog(primaryStage);
 
         if (file != null) {
+        	
             try {
+            	
                 StringBuilder content = new StringBuilder();
+                
                 BufferedReader reader = new BufferedReader(new FileReader(file));
+                
                 String line;
+                
                 while ((line = reader.readLine()) != null) {
+                	
                     content.append(line).append("\n");
+                    
                 }
+                
                 reader.close();
 
                 String fileName = file.getName().toLowerCase();
+                
                 if (fileName.endsWith(".txt")) {
+                	
                     htmleditor.setHtmlText(content.toString());
+                    
                 } else if (fileName.endsWith(".html")) {
+                	
                     htmleditor.setHtmlText(content.toString());
+                    
                 }
+                
             } catch (IOException ex) {
+            	
                 ex.printStackTrace();
+                
             }
+            
         }
+        
     }
+    
     //Open File Method
     
     // Save File Method
+    
     private void saveFile(Stage primaryStage, HTMLEditor htmleditor, FileChooser fileChooser) {
+    	
         fileChooser.setTitle("Save as");
 
         FileChooser.ExtensionFilter htmlFilter = new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html");
+        
         FileChooser.ExtensionFilter txtFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+        
         fileChooser.getExtensionFilters().addAll(htmlFilter, txtFilter);
 
         File file = fileChooser.showSaveDialog(primaryStage);
 
         if (file != null) {
+        	
             try {
+            	
                 String htmlText = htmleditor.getHtmlText();
 
                 String fileName = file.getName().toLowerCase();
+                
                 if (fileName.endsWith(".html")) {
+                	
                     FileWriter writer = new FileWriter(file);
+                    
                     writer.write(htmlText);
+                    
                     writer.close();
+                    
                 } else if (fileName.endsWith(".txt")) {
+                	
                     String plainText = htmlText.replaceAll("\\<.*?\\>", "");
+                    
                     FileWriter writer = new FileWriter(file);
+                    
                     writer.write(plainText);
+                    
                     writer.close();
                 }
+                
             } catch (IOException ex) {
+            	
                 ex.printStackTrace();
+                
             }
+            
         }
+        
     }
     //Save FIle Method
 
     // Print Method
+    
     private void printtextcontent(HTMLEditor htmleditor) {
+    	
         javafx.print.PrinterJob printjob = javafx.print.PrinterJob.createPrinterJob();
+        
         if (printjob != null) {
+        	
             boolean proceed = printjob.showPrintDialog(htmleditor.getScene().getWindow());
+            
             if (proceed) {
+            	
                 boolean printed = printjob.printPage(htmleditor);
+                
                 if (printed) {
+                	
                     printjob.endJob();
+                    
                 }
+                
             }
+            
         }
+        
     }
+    
     //Print Method
     
     //showAboutDialog Method
+    
     private void showAboutDialog() {
+    	
         Stage aboutStage = new Stage();
+        
         Help helpWindow = new Help();
+        
         helpWindow.start(aboutStage);
+        
         aboutStage.show();
+        
     }
     //showAboutDialog Method
+    
     public static void main(String[] args) {
+    	
         launch(args);
+        
     }
    
 }
